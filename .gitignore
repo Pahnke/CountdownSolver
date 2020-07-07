@@ -1,3 +1,13 @@
+# List of words used
+*.txt
+
+# Vim swap files
+*.swp
+
+# IntelliJ files
+*.iml
+*.idea
+
 # Compiled class file
 *.class
 
