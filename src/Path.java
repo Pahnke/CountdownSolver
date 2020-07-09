@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Path {
@@ -23,6 +25,13 @@ public class Path {
   }
 
   @Override
+  public int hashCode() {
+    List<PathNode> tempNodes = new ArrayList<>(nodes);
+    tempNodes.sort(Comparator.comparing(PathNode::getResult));
+    return tempNodes.hashCode();
+  }
+
+  @Override
   public boolean equals(Object obj) {
     if (!(obj instanceof Path)) {
       return false;
@@ -37,9 +46,15 @@ public class Path {
       return false;
     }
 
-    //TODO Node by Node check for path comparision
+    // If the method of working it out is the same up to associativity
+    // or commutativity (not and), then the results of each step will be
+    // the same upto re-ordering
+    List<PathNode> tNodes = new ArrayList<>(this.getNodes());
+    List<PathNode> oNodes = new ArrayList<>(other.getNodes());
+    tNodes.sort(Comparator.comparing(PathNode::getResult));
+    oNodes.sort(Comparator.comparing(PathNode::getResult));
 
-    return false;
+    return tNodes.equals(oNodes);
   }
 
   @Override

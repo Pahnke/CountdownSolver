@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Numbers {
 
@@ -22,7 +23,10 @@ public class Numbers {
     // Counts the No. paths and outputs tally
     // And 1 example of the method
 
+    foundPaths = sortPaths(foundPaths, target);
+
     int possibleResults = 2 * RADIUS + 1;
+
     int[] firstMethod = new int[possibleResults];
     int[] count = new int[possibleResults];
     for (int i = 0; i < foundPaths.size(); i++) {
@@ -38,7 +42,6 @@ public class Numbers {
       outputIfNotEmpty(possibleResults - 1 - i, count, firstMethod, target);
     }
     outputIfNotEmpty(RADIUS, count, firstMethod, target);
-
   }
 
   private void outputIfNotEmpty(int i, int[] count, int[] firstMethod, int target) {
@@ -57,15 +60,12 @@ public class Numbers {
     System.out.println();
   }
 
-  // Now redundant
-  /*
   private List<Path> sortPaths(List<Path> paths, int target) {
-    // Sorts paths based of distance to target
-    return paths.stream().sorted(
-        Comparator.comparing(a -> a.invertedDistFromTarget(target)))
+    // Sorts paths based of result
+    return paths.stream().distinct() /* .sorted(Comparator.comparing(Path::getResult)) */
         .collect(Collectors.toList());
   }
-  */
+
 
   private void findTarget(List<Integer> numbers, int target, List<PathNode> currentPath) {
 

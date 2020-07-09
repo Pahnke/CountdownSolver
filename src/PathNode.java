@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class PathNode {
 
   private final int a;
@@ -14,6 +16,17 @@ public class PathNode {
 
   public int getResult() {
     return result;
+  }
+
+  @Override
+  public int hashCode() {
+    if (!getBinOp().associative()) {
+      return Objects.hash(getA(), getB(), getBinOp().hashCode());
+    }
+    if (getA() > getB()) {
+      return Objects.hash(getA(), getB(), getBinOp().hashCode());
+    }
+    return Objects.hash(getB(), getA(), getBinOp().hashCode());
   }
 
   @Override
